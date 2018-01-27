@@ -37,3 +37,11 @@ Kakao
 Milchschnitte
 
 FLEISCH VIEL FLEISCH
+
+#######
+
+DONE:
+
+Charakter
+Einkaufswagen
+Regale
