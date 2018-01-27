@@ -3,21 +3,17 @@ Assets To-Do
 Müsliboxen - DONE
 Brötchen
 Donut- DONE
-Pizza
+Pizza- DONE
 Banane - DONE
 Apfel- DONE
-Melone 
 Tomaten- DONE
 Ananas- DONE
 Orange- DONE
 Zitrone- DONE
 Dose- DONE
 Salat
-Zwiebel
 Salat
-Kürbis
 Avocado
-Zuccini
 Zeitschriften
 Sweets
 Chipstüten
@@ -27,7 +23,7 @@ Tomatensaucen Dose
 Ravioli
 
 Vodka
-Bier
+Bier- DONE
 etc
 Cola
 Sprite
