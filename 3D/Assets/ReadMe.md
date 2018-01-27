@@ -1,8 +1,8 @@
 Assets To-Do
 
-Müsliboxen
+Müsliboxen - DONE
 Brötchen
-Donut
+Donut- DONE
 Pizza
 Banane - DONE
 Apfel- DONE
@@ -50,3 +50,8 @@ DONE:
 Charakter
 Einkaufswagen
 Regale
+Floor
+Walls
+Kühlregal
+Gefriertruhe
+
