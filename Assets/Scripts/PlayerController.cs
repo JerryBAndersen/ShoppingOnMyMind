@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
+
+	public int playerId = -1;
+
 	public List<Buyable> boughtItems = new List<Buyable>();
 	public List<Buyable> shoppingList = new List<Buyable> ();
 
@@ -19,10 +22,8 @@ public class PlayerController : MonoBehaviour {
 		
 	}
 
-	// Use this for initialization
 	void Start () {
 		rigid = GetComponent<Rigidbody> ();
-		GameController.players.Add (this);
 	}
 	
 	// Update is called once per frame
