@@ -35,5 +35,11 @@ public class BreakableItem : Item, Breakable
 			ri.velocity = rigid.velocity;
 		}
 		Destroy (gameObject);
+		MakeBreakSound ();
+	}
+
+	public virtual void MakeBreakSound(){
+		// TODO
+		print("BREAK!");
 	}
 }

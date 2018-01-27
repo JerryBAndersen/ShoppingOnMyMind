@@ -5,12 +5,21 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
 	public int playerId = -1;
+	public Dictionary<string,bool> shoppingList = new Dictionary<string,bool> ();
 
-	public List<Buyable> boughtItems = new List<Buyable>();
-	public List<Buyable> shoppingList = new List<Buyable> ();
+	public List<string> bought = new List<string>();
+	public List<string> stolen = new List<string>();
+	public List<string> forgotten = new List<string>();
 
-	void Buy(Buyable buy){
-		boughtItems.Add (buy);	
+	public float cash = 10;
+
+	public bool Pay(Buyable buy){
+		if (cash - buy.price >= 0) {
+			cash -= buy.price;
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	private Rigidbody rigid;
