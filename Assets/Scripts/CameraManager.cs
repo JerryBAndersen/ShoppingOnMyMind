@@ -7,11 +7,7 @@ public class CameraManager : MonoBehaviour {
     public GameObject target;
     public Vector3 offset;
     public float speed = 1;
-
-	// Use this for initialization
-	void Start () {
-		
-	}
+    
 	
 	// Update is called once per frame
 	void Update () {
