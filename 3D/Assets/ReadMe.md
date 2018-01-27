@@ -12,15 +12,13 @@ Orange- DONE
 Zitrone- DONE
 Dose- DONE
 Salat
-Salat
 Avocado
 Zeitschriften
 Sweets
-Chipstüten
+Chipstüten- DONE
 Erbsendose
 Nudelpackung
 Tomatensaucen Dose
-Ravioli
 
 Vodka
 Bier- DONE
@@ -30,7 +28,7 @@ Sprite
 Fanta
 Wasser
 Mate
-Milch
+Milch- DONE
 Yoghurt
 Käse
 Kakao
