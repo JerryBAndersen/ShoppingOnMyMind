@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class MoveBodyParts : MonoBehaviour {
     [Range(0, 7)]
@@ -100,7 +101,7 @@ public class MoveBodyParts : MonoBehaviour {
     void updateGrabbingStatus()
     {
         //Grab Button Pressed -- LEFT --
-        if (Input.GetButtonDown(LeftGrabButton + controllerID.ToString()))
+        if (Input.GetButton(LeftGrabButton + controllerID.ToString()))
         {
             if (!grabbingActiveLeft)
             {
@@ -121,7 +122,7 @@ public class MoveBodyParts : MonoBehaviour {
         }
 
         //Grab Button Pressed -- LEFT --
-        if (Input.GetButtonDown(RightGrabButton + controllerID.ToString()))
+        if (Input.GetButton(RightGrabButton + controllerID.ToString()))
         {
             if (!grabbingActiveRight)
             {
@@ -134,6 +135,7 @@ public class MoveBodyParts : MonoBehaviour {
         {
             if (grabbingActiveRight)
             {
+                Debug.Log("I am letting go!");
                 clearGrabbing(GJ_HandRight);
                 grabbingActiveRight = false;
                 //Clear Joint
@@ -148,27 +150,47 @@ public class MoveBodyParts : MonoBehaviour {
 
         //Check Collision around Hand
         colliders = Physics.OverlapSphere(Hand.transform.position, radius);
-        if(colliders.Length > 0) //Something is in there
+        if (colliders.Length > 0) //Something is in there
         {
             FixedJoint JointHand;
-            
+            Collider nearestObject = colliders[0];
+            float[] DistancesBetweenObjects = new float[colliders.Length]; //Save distances between all objects inside the collider
+
             for (int i = 0; i < colliders.Length; i++)
             {
-                if (colliders[i].gameObject.name == "ShopingCart")
+                if (colliders[i].gameObject.tag != "Player")
                 {
-                    JointHand = Hand.AddComponent<FixedJoint>();
-                    Debug.Log(colliders[i]);
-                    //Take whatever is in there connects its rigidbody with the joint
-                    JointHand.connectedBody = colliders[i].gameObject.GetComponent<Rigidbody>();
-                    JointHand.breakForce = 1000.0F;
-                    JointHand.breakTorque = 2000.0F;
-                    Debug.Log(colliders[i].gameObject.GetComponent<Rigidbody>());
-                }
+                    Debug.Log("Collided Objects: " + colliders[i].gameObject);
+                    float DistanceOld;
+                    float DistanceNew;
+                    DistanceOld = Vector3.Distance(nearestObject.gameObject.transform.position, Hand.transform.position);
+                    DistanceNew = Vector3.Distance(colliders[i].gameObject.transform.position, Hand.transform.position);
 
-            }
+                    //Save new nearest Object
+                    if (DistanceNew < DistanceOld)
+                        nearestObject = colliders[i];
             
-           
-            return true;
+                }
+            }
+
+            //To be safe           
+            if (nearestObject.gameObject.tag != "Player")
+            {
+                //Create Joint
+                JointHand = Hand.AddComponent<FixedJoint>();
+                Debug.Log("Connecting Joint with " + nearestObject.gameObject.GetComponent<Rigidbody>());
+                JointHand.connectedBody = nearestObject.gameObject.GetComponent<Rigidbody>();
+                JointHand.breakForce = 12000.0F;
+                JointHand.breakTorque = 12000.0F;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+
+            
         }
         else
         {
