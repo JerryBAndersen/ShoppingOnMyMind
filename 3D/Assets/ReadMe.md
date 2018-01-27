@@ -4,10 +4,14 @@ Müsliboxen
 Brötchen
 Donut
 Pizza
-Banane
-Apfel
-Melone
-Tomaten
+Banane - DONE
+Apfel- DONE
+Melone 
+Tomaten- DONE
+Ananas- DONE
+Orange- DONE
+Zitrone- DONE
+Dose- DONE
 Salat
 Zwiebel
 Salat
@@ -39,6 +43,7 @@ Milchschnitte
 FLEISCH VIEL FLEISCH
 
 #######
+Other
 
 DONE:
 
