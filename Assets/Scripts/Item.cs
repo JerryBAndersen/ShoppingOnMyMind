@@ -2,12 +2,15 @@
 
 public class Item : MonoBehaviour
 {
-	Rigidbody rigid;
-	Collider coll;
+	public Rigidbody rigid;
+	public Collider coll;
 
-	void Start(){
+	public virtual void Start(){
 		rigid = GetComponent<Rigidbody> ();
 		coll = GetComponent<Collider> ();
+	}
+	public virtual void Update ()
+	{
 	}
 }
 

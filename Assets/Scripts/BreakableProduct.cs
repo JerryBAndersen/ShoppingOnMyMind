@@ -1,21 +1,13 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public class BreakableProduct : Product, Breakable
+﻿public class BreakableProduct : BreakableItem, Buyable
 {
-	GameObject[] fragmentPrefabs = null;
-	GameObject[] fragments = null;
-
-	public bool isBroken{
-		get{ 
-			return fragments != null;
-		}
+	public override void Start ()
+	{
+		base.Start ();
 	}
 
-	public void Break(){
-		fragments = new GameObject[fragmentPrefabs.Length];
-		for (int i= 0; i < fragmentPrefabs.Length; i++) {
-			fragments[i] = Instantiate (fragmentPrefabs [i]);
-		}
+	public override void Update ()
+	{
+		base.Update ();
 	}
 }
+
