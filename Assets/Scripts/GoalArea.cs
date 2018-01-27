@@ -2,23 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class GoalArea : BuyableArea
+public class GoalArea : TriggerArea
 {
-	public PlayerController assignedPlayer;
+	public MonoBehaviour IsFilterType(Collider coll){
+		return (MonoBehaviour)coll.GetComponent<ShoppingCart> ();
+	}
 
-	void EvaluateGoals(){
-		List<Buyable> bought = new List<Buyable>();
-		List<Buyable> stolen = new List<Buyable>();
-		List<Buyable> forgotten = new List<Buyable>();
-		foreach (var buy in assignedPlayer.shoppingList) {
-			if (containing.ContainsKey ((MonoBehaviour)buy)) {
-				if (assignedPlayer.boughtItems.Contains (buy)) {
-					bought.Add (buy);
-				} else {
-					stolen.Add (buy);
-				}
-			} else {
-				forgotten.Add (buy);
+	public void FixedUpdate(){
+		foreach (var obj in containedObjects) {
+			var cart = (ShoppingCart)obj;
+			if (!cart.isEvaluated) {
+				cart.Evaluate ();
 			}
 		}
 	}
