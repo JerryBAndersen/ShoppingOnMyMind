@@ -284,6 +284,13 @@
   <ItemGroup>
     <Compile Include="Assets\cha_data\Script\ScreenShot.cs" />
     <Compile Include="Assets\Inverse Kinematics\Scripts\InverseKinematics.cs" />
+    <Compile Include="Assets\OutlineEffect\Demo\MaterialSwitcher.cs" />
+    <Compile Include="Assets\OutlineEffect\Demo\OutlineAnimation.cs" />
+    <Compile Include="Assets\OutlineEffect\Demo\Rotate.cs" />
+    <Compile Include="Assets\OutlineEffect\Demo\Toggle.cs" />
+    <Compile Include="Assets\OutlineEffect\LinkedSet.cs" />
+    <Compile Include="Assets\OutlineEffect\Outline.cs" />
+    <Compile Include="Assets\OutlineEffect\OutlineEffect.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Attributes\GetSetAttribute.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Attributes\MinAttribute.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Attributes\TrackballAttribute.cs" />
@@ -329,14 +336,30 @@
     <Compile Include="Assets\PostProcessing\Runtime\Utils\MaterialFactory.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Utils\RenderTextureFactory.cs" />
     <Compile Include="Assets\PostProcessing\Utilities\CustomMotionTexture\ExampleWheelController.cs" />
+    <Compile Include="Assets\Scripts\AICharacter.cs" />
+    <Compile Include="Assets\Scripts\Breakable.cs" />
+    <Compile Include="Assets\Scripts\BreakableItem.cs" />
+    <Compile Include="Assets\Scripts\BreakableProduct.cs" />
     <Compile Include="Assets\Scripts\Buyable.cs" />
+    <Compile Include="Assets\Scripts\BuyableArea.cs" />
+    <Compile Include="Assets\Scripts\CameraControl.cs" />
     <Compile Include="Assets\Scripts\CameraManager.cs" />
     <Compile Include="Assets\Scripts\CenterOfMass.cs" />
     <Compile Include="Assets\Scripts\follow.cs" />
+    <Compile Include="Assets\Scripts\GameController.cs" />
+    <Compile Include="Assets\Scripts\GoalArea.cs" />
+    <Compile Include="Assets\Scripts\Item.cs" />
     <Compile Include="Assets\Scripts\MoveBodyParts.cs" />
+    <Compile Include="Assets\Scripts\NpcController.cs" />
+    <Compile Include="Assets\Scripts\PlayerArea.cs" />
+    <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PositionFixer.cs" />
+    <Compile Include="Assets\Scripts\Product.cs" />
+    <Compile Include="Assets\Scripts\TriggerArea.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\OutlineEffect\Resources\OutlineBufferShader.shader" />
+    <None Include="Assets\OutlineEffect\Resources\OutlineShader.shader" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\HistogramCompute.compute" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\HistogramRender.shader" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\ParadeRender.shader" />
