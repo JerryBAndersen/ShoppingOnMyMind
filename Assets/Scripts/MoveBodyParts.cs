@@ -152,7 +152,9 @@ public class MoveBodyParts : MonoBehaviour {
         colliders = Physics.OverlapSphere(Hand.transform.position, radius);
         if (colliders.Length > 0) //Something is in there
         {
-            FixedJoint JointHand;
+            HingeJoint JointHand;
+            //SpringJoint JointHand;
+            //FixedJoint JointHand;
             Collider nearestObject = colliders[0];
             float[] DistancesBetweenObjects = new float[colliders.Length]; //Save distances between all objects inside the collider
 
@@ -174,14 +176,20 @@ public class MoveBodyParts : MonoBehaviour {
             }
 
             //To be safe           
-            if (nearestObject.gameObject.tag != "Player")
+            if (nearestObject.gameObject.tag != "Player" && nearestObject.gameObject.GetComponent<Rigidbody>() != null)
             {
                 //Create Joint
-                JointHand = Hand.AddComponent<FixedJoint>();
+                JointHand = Hand.AddComponent<HingeJoint>();
                 Debug.Log("Connecting Joint with " + nearestObject.gameObject.GetComponent<Rigidbody>());
                 JointHand.connectedBody = nearestObject.gameObject.GetComponent<Rigidbody>();
-                JointHand.breakForce = 12000.0F;
-                JointHand.breakTorque = 12000.0F;
+                //nearestObject.gameObject.GetComponent<Rigidbody>().mass = 0.1F;
+                //nearestObject.gameObject.GetComponent<Rigidbody>().useGravity = false;
+                JointHand.connectedAnchor = new Vector3(0, 0, 0);
+                //JointHand.maxDistance = 0.0000000001F;
+                //JointHand.spring = 0.1F;
+                //JointHand.tolerance = 0.0F;
+                JointHand.breakForce = 500.0F;
+                JointHand.breakTorque = 500.0F;
                 return true;
             }
             else
@@ -200,8 +208,8 @@ public class MoveBodyParts : MonoBehaviour {
 
     void clearGrabbing(GameObject Hand)
     {
-        if(Hand.GetComponent<FixedJoint>() != null)
-        Destroy(Hand.GetComponent<FixedJoint>());
+        if(Hand.GetComponent<HingeJoint>() != null)
+        Destroy(Hand.GetComponent<HingeJoint>());
     }
 
     void Jumping(float strength)
