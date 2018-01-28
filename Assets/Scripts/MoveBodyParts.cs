@@ -14,6 +14,9 @@ public class MoveBodyParts : MonoBehaviour {
     public float FootSpeedVertical = 1000.0F;
     public float FootSpeedHorizontal = 1000.0F;
 
+    private Vector3 right;
+    private Vector3 left;
+
 
 
     //Rigidbody parts
@@ -49,15 +52,17 @@ public class MoveBodyParts : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-		
-	}
+        right = Root.position - ArmRight.position;
+        left = Root.position - ArmLeft.position;
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
         //ARM MOVEMENT ------------------------------------------------------------------
         //Get Controller Analogstick Data
-        float Arm_verticalMove = Input.GetAxis("Vertical_8_" + controllerID.ToString()) * ArmSpeedVertical;
-        float Arm_horizontalMove = Input.GetAxis("Horizontal_8_" + controllerID.ToString()) * ArmSpeedHorizontal;
+        float Arm_verticalMove = Input.GetAxis("Vertical_9_" + controllerID.ToString()) * ArmSpeedVertical ;
+        float Arm_horizontalMove = Input.GetAxis("Horizontal_9_" + controllerID.ToString()) * ArmSpeedHorizontal ;
         //No Framerate dependency
         Arm_verticalMove *= Time.deltaTime;
         Arm_horizontalMove *= Time.deltaTime;
@@ -65,8 +70,8 @@ public class MoveBodyParts : MonoBehaviour {
 
         //FOOT MOVEMENT - NO COPY PASTA -----------------------------------------
         //Get Controller Analogstick Data
-        float Foot_verticalMove = Input.GetAxis("Vertical_9_" + controllerID.ToString()) * FootSpeedVertical;
-        float Foot_horizontalMove = Input.GetAxis("Horizontal_9_" + controllerID.ToString()) * FootSpeedHorizontal;
+        float Foot_verticalMove = Input.GetAxis("Vertical_8_" + controllerID.ToString()) * FootSpeedVertical;
+        float Foot_horizontalMove = Input.GetAxis("Horizontal_8_" + controllerID.ToString()) * FootSpeedHorizontal;
         //No Framerate dependency
         Foot_verticalMove *= Time.deltaTime;
         Foot_horizontalMove *= Time.deltaTime;
@@ -74,14 +79,13 @@ public class MoveBodyParts : MonoBehaviour {
 
 
         //Make into a Force
-        Vector3 Arm_appliedForce;
-       Arm_appliedForce = new Vector3(Arm_horizontalMove, 0, Arm_verticalMove);
         Vector3 Foot_appliedForce;
         Foot_appliedForce = new Vector3(Foot_horizontalMove, 0, Foot_verticalMove);
 
         //Apply Force (Move the Rigidbody)
-       ArmLeft.AddForce(Arm_appliedForce);
-        ArmRight.AddForce(Arm_appliedForce);
+        Debug.Log(Root.position + left);
+        ArmLeft.AddForce( new Vector3(0, -Arm_verticalMove, 0));
+        ArmRight.AddForce( new Vector3(0, -Arm_verticalMove, -0));
         FootLeft.AddForce(Foot_appliedForce);
         FootRight.AddForce(Foot_appliedForce);
     }
