@@ -10,6 +10,7 @@ public class FoodIcon : MonoBehaviour {
     public Sprite[] IconList;
     public Image[] CheckboxList;
     public Text underschrift;
+    public string activeFood;
     public bool[] Checked;
 
 	// Use this for initialization
@@ -45,6 +46,7 @@ public class FoodIcon : MonoBehaviour {
             {
                 this.GetComponent<Image>().sprite = IconList[i];
                 underschrift.text = prefab;
+                activeFood = prefab;
             }
         }
     }
