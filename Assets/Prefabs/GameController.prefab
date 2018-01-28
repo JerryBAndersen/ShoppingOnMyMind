@@ -52,8 +52,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   possibleShoppingListItems:
-  - {fileID: 114064731215140124, guid: fe482baca8e322a43b68c25a3886c00a, type: 2}
-  shoppingListLength: 1
+  - {fileID: 114172596499158914, guid: efa6b9fd723f6de4991ecc2f2aef7071, type: 2}
+  - {fileID: 114670684952716810, guid: fc69b1059f7ea6846a77750be95c94a7, type: 2}
+  - {fileID: 114128478403453344, guid: bf8085039d92af540b792b6b6cf64ca2, type: 2}
+  shoppingListLength: 3
+  shoppingList: []
   playerColors:
   - {r: 1, g: 0, b: 0, a: 1}
   - {r: 0, g: 0, b: 1, a: 1}

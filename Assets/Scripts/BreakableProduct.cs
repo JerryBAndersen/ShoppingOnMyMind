@@ -28,10 +28,12 @@ public class BreakableProduct : Product, Breakable
 	}
 
 	public void Break(){
-		fragments = Instantiate (fragmentsPrefab, transform,false);
-		fragments.transform.SetParent (null,true);
-		foreach (var ri in fragments.GetComponentsInChildren<Rigidbody>()) {
-			ri.velocity = rigid.velocity;
+		if (fragmentsPrefab) {
+			fragments = Instantiate (fragmentsPrefab, transform,false);
+			fragments.transform.SetParent (null,true);
+			foreach (var ri in fragments.GetComponentsInChildren<Rigidbody>()) {
+				ri.velocity = rigid.velocity;
+			}
 		}
 		Destroy (gameObject);
 		MakeBreakSound ();

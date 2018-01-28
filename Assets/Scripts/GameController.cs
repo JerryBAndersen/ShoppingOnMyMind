@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
 
 	public Product[] possibleShoppingListItems;
 	public int shoppingListLength = 10;
+	public List<string> shoppingList = new List<string> ();
 
 	public Color[] playerColors = {
 		Color.red,Color.blue,Color.yellow,Color.cyan,
@@ -25,8 +26,16 @@ public class GameController : MonoBehaviour
 		}
 	}
 
+
 	void Start(){
-		npcs.AddRange (FindObjectsOfType<NpcController>());
+		npcs.AddRange (FindObjectsOfType<NpcController> ());
+		for(int j = 0; j < shoppingListLength; j++){
+			string it = GetRandomShoppingListItem();
+			while (shoppingList.Contains (it)) {
+				it = GetRandomShoppingListItem();
+			}
+			shoppingList.Add(it);
+		}
 	}
 
 	void Update(){
@@ -44,15 +53,26 @@ public class GameController : MonoBehaviour
 
 	public string GetRandomShoppingListItem(){
 		int i = (int)(possibleShoppingListItems.Length * UnityEngine.Random.value);
-		return possibleShoppingListItems [i].GetType().ToString ();
+		string s = possibleShoppingListItems [i].GetType ().ToString ();
+		return s;
 	}
+
+	public PlayerController[] GetPlayersThatBoughtProduct(string product){
+		List<PlayerController> pleys = new List<PlayerController> ();
+		foreach (var player in players) {
+			if (player.DidBuyProduct(product)) {
+				pleys.Add (player);
+			}
+		}
+		return pleys.ToArray ();
+	} 
 
 	void AddPlayer(int i){
 		if (npcs.Count > 0) {
-			int sel = (int)(UnityEngine.Random.value * npcs.Count);
+			int sel = (int)(UnityEngine.Random.value-.01f * npcs.Count);
 			var n = npcs [sel];
 			npcs.Remove (n);
-			Destroy (n.GetComponent<NpcController>());
+			n.GetComponent<NpcController> ().enabled = false;
 			n.GetComponent<AICharacter> ().enabled = false;
 			n.GetComponent<NavMeshAgent> ().enabled = false;
 			n.GetComponent<MoveBodyParts> ().enabled = true;
@@ -60,11 +80,10 @@ public class GameController : MonoBehaviour
 			PaintInPlayerColor (n.gameObject,i);
 			var player = n.gameObject.AddComponent<PlayerController>();
 			player.playerId = i;
-			for(int j = 0; j < shoppingListLength; j++){
-				string it = GetRandomShoppingListItem();
-				player.shoppingList.Add(it);
-				player.forgotten.Add(it);
-			}
+			string[] prods = new string[shoppingList.Count];
+			shoppingList.CopyTo (prods); 
+			player.shoppingList.AddRange (prods);
+			player.forgotten.AddRange (prods);
 			players[i] = (player);
 			PaintInPlayerColor (player.gameObject,player.playerId);
 		}

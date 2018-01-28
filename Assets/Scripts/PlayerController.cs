@@ -13,6 +13,16 @@ public class PlayerController : MonoBehaviour {
 
 	public float cash = 10;
 
+	public bool DidBuyProduct(string product){
+		return !forgotten.Contains (product);
+	}
+
+	public Color color{
+		get { 
+			return GameController.instance.playerColors[playerId];
+		}
+	}
+
 	public bool Pay(Buyable buy){
 		if (cash - buy.price >= 0) {
 			cash -= buy.price;

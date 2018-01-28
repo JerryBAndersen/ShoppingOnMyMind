@@ -16,6 +16,9 @@ public class AICharacter : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (!nav.isActiveAndEnabled) {
+			return;
+		}
         if (timer <=0)
         {
             Vector3 randomDirection = Random.insideUnitSphere * navRadius;
