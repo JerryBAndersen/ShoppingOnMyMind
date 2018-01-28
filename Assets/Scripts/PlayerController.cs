@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour {
 	public List<string> bought = new List<string>();
 	public List<string> stolen = new List<string>();
 
+    public GameObject root;
+
 	public float cash = 10;
 
 	public bool DidBuyProduct(string product){
@@ -43,6 +45,7 @@ public class PlayerController : MonoBehaviour {
 
 	void Start () {
 		rigid = GetComponent<Rigidbody> ();
+        root = GetComponent<MoveBodyParts>().Root.gameObject;
 	}
 	
 	/* Update is called once per frame
