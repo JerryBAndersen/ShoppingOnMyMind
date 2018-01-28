@@ -344,6 +344,8 @@
     <Compile Include="Assets\Scripts\BuyableArea.cs" />
     <Compile Include="Assets\Scripts\CameraControl.cs" />
     <Compile Include="Assets\Scripts\CameraManager.cs" />
+    <Compile Include="Assets\Scripts\CashPoint.cs" />
+    <Compile Include="Assets\Scripts\CashRegister.cs" />
     <Compile Include="Assets\Scripts\CenterOfMass.cs" />
     <Compile Include="Assets\Scripts\follow.cs" />
     <Compile Include="Assets\Scripts\GameController.cs" />
@@ -355,6 +357,10 @@
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PositionFixer.cs" />
     <Compile Include="Assets\Scripts\Product.cs" />
+    <Compile Include="Assets\Scripts\Products\Apple.cs" />
+    <Compile Include="Assets\Scripts\Products\Banana.cs" />
+    <Compile Include="Assets\Scripts\Products\CerealBox.cs" />
+    <Compile Include="Assets\Scripts\ShoppingCart.cs" />
     <Compile Include="Assets\Scripts\TriggerArea.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -23,7 +23,8 @@ GameObject:
   - component: {fileID: 23119643433049212}
   - component: {fileID: 95748833352469978}
   - component: {fileID: 54462387524341720}
-  - component: {fileID: 64271094017784092}
+  - component: {fileID: 114605978807797548}
+  - component: {fileID: 65962090944967590}
   m_Layer: 0
   m_Name: CerealBox
   m_TagString: Untagged
@@ -38,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1189259218211082}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 13.964, y: 0.5125, z: 3.086}
+  m_LocalPosition: {x: 13.964, y: 0.5125, z: 2.751}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -100,8 +101,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!64 &64271094017784092
-MeshCollider:
+--- !u!65 &65962090944967590
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -109,11 +110,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: 6bec3b41c348b5b44a9f0264c927373d, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 0.100975566, y: 0.3400262, z: 0.25626597}
+  m_Center: {x: 0, y: 0.1700131, z: 0}
 --- !u!95 &95748833352469978
 Animator:
   serializedVersion: 3
@@ -131,3 +130,16 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114605978807797548
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1189259218211082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 940e0ac3e9b6b2348812ae0a128665ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rigid: {fileID: 54462387524341720}
+  coll: {fileID: 65962090944967590}

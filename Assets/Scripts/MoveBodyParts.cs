@@ -1,8 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class MoveBodyParts : MonoBehaviour {
+    [Range(0, 7)]
+    public int controllerID = 0;
 
     [Header("Movement Speeds")]
     //Movement Strenghts
@@ -10,6 +13,9 @@ public class MoveBodyParts : MonoBehaviour {
     public float ArmSpeedHorizontal = 1000.0F;
     public float FootSpeedVertical = 1000.0F;
     public float FootSpeedHorizontal = 1000.0F;
+
+    private Vector3 right;
+    private Vector3 left;
 
 
 
@@ -38,47 +44,48 @@ public class MoveBodyParts : MonoBehaviour {
     public FixedJoint HandRight;
     public Transform HandLeftPosition;
     public Transform HandRightPosition;
-    public string LeftGrabButton = "joystick button 4";
-    public string RightGrabButton = "joystick button 5";
+    public string LeftGrabButton = "leftGrabButton_";
+    public string RightGrabButton = "rightGrabButton_";
     private bool grabbingActiveLeft = false;
     private bool grabbingActiveRight = false;
 
 
     // Use this for initialization
     void Start () {
-		
-	}
+        right = Root.position - ArmRight.position;
+        left = Root.position - ArmLeft.position;
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
         //ARM MOVEMENT ------------------------------------------------------------------
         //Get Controller Analogstick Data
-        float Arm_verticalMove = Input.GetAxis("Vertical_8") * ArmSpeedVertical;
-        float Arm_horizontalMove = Input.GetAxis("Horizontal_8") * ArmSpeedHorizontal;
+        float Arm_verticalMove = Input.GetAxis("Vertical_9_" + controllerID.ToString()) * ArmSpeedVertical ;
+        float Arm_horizontalMove = Input.GetAxis("Horizontal_9_" + controllerID.ToString()) * ArmSpeedHorizontal ;
         //No Framerate dependency
         Arm_verticalMove *= Time.deltaTime;
         Arm_horizontalMove *= Time.deltaTime;
-       // Debug.Log("Arm: " + Arm_horizontalMove + ", " + Arm_verticalMove);
+        //Debug.Log("Arm: " + Arm_horizontalMove + ", " + Arm_verticalMove);
 
         //FOOT MOVEMENT - NO COPY PASTA -----------------------------------------
         //Get Controller Analogstick Data
-        float Foot_verticalMove = Input.GetAxis("Vertical_9") * FootSpeedVertical;
-        float Foot_horizontalMove = Input.GetAxis("Horizontal_9") * FootSpeedHorizontal;
+        float Foot_verticalMove = Input.GetAxis("Vertical_8_" + controllerID.ToString()) * FootSpeedVertical;
+        float Foot_horizontalMove = Input.GetAxis("Horizontal_8_" + controllerID.ToString()) * FootSpeedHorizontal;
         //No Framerate dependency
         Foot_verticalMove *= Time.deltaTime;
         Foot_horizontalMove *= Time.deltaTime;
-      //  Debug.Log("Foot: " + Foot_horizontalMove + ", " + Foot_verticalMove);
+        //Debug.Log("Foot: " + Foot_horizontalMove + ", " + Foot_verticalMove);
 
 
         //Make into a Force
-        Vector3 Arm_appliedForce;
-       Arm_appliedForce = new Vector3(Arm_horizontalMove, 0, Arm_verticalMove);
         Vector3 Foot_appliedForce;
         Foot_appliedForce = new Vector3(Foot_horizontalMove, 0, Foot_verticalMove);
 
         //Apply Force (Move the Rigidbody)
-       ArmLeft.AddForce(Arm_appliedForce);
-        ArmRight.AddForce(Arm_appliedForce);
+        Debug.Log(Root.position + left);
+        ArmLeft.AddForce( new Vector3(0, -Arm_verticalMove, Arm_horizontalMove));
+        ArmRight.AddForce( new Vector3(0, -Arm_verticalMove, -Arm_horizontalMove));
         FootLeft.AddForce(Foot_appliedForce);
         FootRight.AddForce(Foot_appliedForce);
     }
@@ -89,18 +96,20 @@ public class MoveBodyParts : MonoBehaviour {
         updateGrabbingStatus();
 
         //Jump
-        if (Input.GetKeyDown("joystick button 0"))
+        if (Input.GetButtonDown("Jump_" + controllerID.ToString()))
         {
             this.Jumping(JumpingStrength);
+            Debug.Log(controllerID);
         }
     }
     void updateGrabbingStatus()
     {
         //Grab Button Pressed -- LEFT --
-        if (Input.GetKey(LeftGrabButton))
+        if (Input.GetButton(LeftGrabButton + controllerID.ToString()))
         {
             if (!grabbingActiveLeft)
             {
+                Debug.Log(controllerID);
                 Debug.Log("I am trying to grab stuff!");
                 //Call Function to grab stuff
                 grabbingActiveLeft = grabStuff(GJ_HandLeft);            
@@ -117,7 +126,7 @@ public class MoveBodyParts : MonoBehaviour {
         }
 
         //Grab Button Pressed -- LEFT --
-        if (Input.GetKey(RightGrabButton))
+        if (Input.GetButton(RightGrabButton + controllerID.ToString()))
         {
             if (!grabbingActiveRight)
             {
@@ -130,6 +139,7 @@ public class MoveBodyParts : MonoBehaviour {
         {
             if (grabbingActiveRight)
             {
+                Debug.Log("I am letting go!");
                 clearGrabbing(GJ_HandRight);
                 grabbingActiveRight = false;
                 //Clear Joint
@@ -144,27 +154,55 @@ public class MoveBodyParts : MonoBehaviour {
 
         //Check Collision around Hand
         colliders = Physics.OverlapSphere(Hand.transform.position, radius);
-        if(colliders.Length > 0) //Something is in there
+        if (colliders.Length > 0) //Something is in there
         {
-            FixedJoint JointHand;
-            
+            HingeJoint JointHand;
+            //SpringJoint JointHand;
+            //FixedJoint JointHand;
+            Collider nearestObject = colliders[0];
+            float[] DistancesBetweenObjects = new float[colliders.Length]; //Save distances between all objects inside the collider
+
             for (int i = 0; i < colliders.Length; i++)
             {
-                if (colliders[i].gameObject.name == "ShopingCart")
+                if (colliders[i].gameObject.tag != "Player")
                 {
-                    JointHand = Hand.AddComponent<FixedJoint>();
-                    Debug.Log(colliders[i]);
-                    //Take whatever is in there connects its rigidbody with the joint
-                    JointHand.connectedBody = colliders[i].gameObject.GetComponent<Rigidbody>();
-                    JointHand.breakForce = 1000.0F;
-                    JointHand.breakTorque = 2000.0F;
-                    Debug.Log(colliders[i].gameObject.GetComponent<Rigidbody>());
-                }
+                    Debug.Log("Collided Objects: " + colliders[i].gameObject);
+                    float DistanceOld;
+                    float DistanceNew;
+                    DistanceOld = Vector3.Distance(nearestObject.gameObject.transform.position, Hand.transform.position);
+                    DistanceNew = Vector3.Distance(colliders[i].gameObject.transform.position, Hand.transform.position);
 
-            }
+                    //Save new nearest Object
+                    if (DistanceNew < DistanceOld)
+                        nearestObject = colliders[i];
             
-           
-            return true;
+                }
+            }
+
+            //To be safe           
+            if (nearestObject.gameObject.tag != "Player" && nearestObject.gameObject.GetComponent<Rigidbody>() != null)
+            {
+                //Create Joint
+                JointHand = Hand.AddComponent<HingeJoint>();
+                Debug.Log("Connecting Joint with " + nearestObject.gameObject.GetComponent<Rigidbody>());
+                JointHand.connectedBody = nearestObject.gameObject.GetComponent<Rigidbody>();
+                //nearestObject.gameObject.GetComponent<Rigidbody>().mass = 0.1F;
+                //nearestObject.gameObject.GetComponent<Rigidbody>().useGravity = false;
+                JointHand.connectedAnchor = new Vector3(0, 0, 0);
+                //JointHand.maxDistance = 0.0000000001F;
+                //JointHand.spring = 0.1F;
+                //JointHand.tolerance = 0.0F;
+                JointHand.breakForce = 500.0F;
+                JointHand.breakTorque = 500.0F;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+
+            
         }
         else
         {
@@ -174,8 +212,8 @@ public class MoveBodyParts : MonoBehaviour {
 
     void clearGrabbing(GameObject Hand)
     {
-        if(Hand.GetComponent<FixedJoint>() != null)
-        Destroy(Hand.GetComponent<FixedJoint>());
+        if(Hand.GetComponent<HingeJoint>() != null)
+        Destroy(Hand.GetComponent<HingeJoint>());
     }
 
     void Jumping(float strength)
