@@ -84,8 +84,8 @@ public class MoveBodyParts : MonoBehaviour {
 
         //Apply Force (Move the Rigidbody)
         Debug.Log(Root.position + left);
-        ArmLeft.AddForce( new Vector3(0, -Arm_verticalMove, 0));
-        ArmRight.AddForce( new Vector3(0, -Arm_verticalMove, -0));
+        ArmLeft.AddForce( new Vector3(0, -Arm_verticalMove, Arm_horizontalMove));
+        ArmRight.AddForce( new Vector3(0, -Arm_verticalMove, -Arm_horizontalMove));
         FootLeft.AddForce(Foot_appliedForce);
         FootRight.AddForce(Foot_appliedForce);
     }
