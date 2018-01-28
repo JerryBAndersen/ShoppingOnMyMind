@@ -2,7 +2,7 @@
 
 public class BreakableProduct : Product, Breakable
 {
-	public float breakForce = .1f;
+	public float breakForce = 301.0f;
 	public GameObject fragmentsPrefab = null;
 	public GameObject fragments = null;
 
@@ -23,7 +23,7 @@ public class BreakableProduct : Product, Breakable
 
 		var force = (otherrigid?otherrigid.mass:1f)*Vector3.Dot (rel, averageNormal);
 		if (force > breakForce) {
-			Break ();
+			//Break ();
 		}
 	}
 
