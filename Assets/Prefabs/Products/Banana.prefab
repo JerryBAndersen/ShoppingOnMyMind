@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 54308200270111812}
   - component: {fileID: 114388342069551288}
   m_Layer: 0
-  m_Name: banane2 (35)
+  m_Name: Banana
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
