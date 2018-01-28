@@ -4,8 +4,15 @@ using System.Collections.Generic;
 
 public class GoalArea : TriggerArea
 {
-	public MonoBehaviour IsFilterType(Collider coll){
-		return (MonoBehaviour)coll.GetComponent<ShoppingCart> ();
+	public override void OnTriggerStay(Collider coll){
+		ShoppingCart c;
+		if (c = coll.GetComponent<ShoppingCart>()) {
+			if (!containing.ContainsKey (c)) {
+				containing.Add (c, true);
+			} else {
+				containing [c] = true;		
+			}
+		}	
 	}
 
 	public void FixedUpdate(){

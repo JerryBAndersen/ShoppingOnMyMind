@@ -16,16 +16,6 @@ public class Product : Item, Buyable
 		}
 	}
 
-	public override void Start ()
-	{
-		base.Start ();
-	}
-
-	public override void Update ()
-	{
-		base.Update ();
-	}
-
 	public void Buy(PlayerController player){
 		if (player.Pay (this)) {
 			_isPaid = true;

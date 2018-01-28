@@ -40,6 +40,5 @@ public class BreakableItem : Item, Breakable
 
 	public virtual void MakeBreakSound(){
 		// TODO
-		print("BREAK!");
 	}
 }

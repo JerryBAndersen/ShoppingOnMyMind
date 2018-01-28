@@ -4,14 +4,11 @@ using System.Collections.Generic;
 using System;
 
 [RequireComponent(typeof(Collider))]
-public class TriggerArea : MonoBehaviour
+public abstract class TriggerArea : MonoBehaviour
 {
 	public MonoBehaviour[] containedObjects;
 
 	public Dictionary<MonoBehaviour, bool> containing = new Dictionary<MonoBehaviour,bool>();
-	public virtual MonoBehaviour GetFilterType (Collider coll){
-		return (MonoBehaviour)coll.GetComponent<MonoBehaviour> ();
-	}
 	public Collider triggerCollider;
 
 	void Start(){
@@ -36,15 +33,6 @@ public class TriggerArea : MonoBehaviour
 		}
 	}
 
-	void OnTriggerStay(Collider coll){
-		MonoBehaviour c;
-		if (c = GetFilterType(coll)) {
-			if (!containing.ContainsKey (c)) {
-				containing.Add (c, true);
-			} else {
-				containing [c] = true;		
-			}
-		}	
-	}
+	public abstract void OnTriggerStay (Collider coll);
 }
 

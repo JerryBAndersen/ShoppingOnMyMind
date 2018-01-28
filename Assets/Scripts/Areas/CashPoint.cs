@@ -3,6 +3,7 @@
 public class CashPoint : PlayerArea
 {
 	public PlayerController current = null;
+
 	public void FixedUpdate(){
 		if (current == null) {
 			foreach (var item in containing) {

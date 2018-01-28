@@ -21,10 +21,10 @@ public class CameraControl : MonoBehaviour {
 	void FixedUpdate () {
 		Vector3 center = Vector3.zero;
 		foreach (var player in GameController.players) {
-			center += player.Value.transform.position;
+			center += player.transform.position;
 		}
 		center.y = 0;
-		center /= GameController.players.Count;
+		center /= GameController.players.Length;
 		transform.LookAt (center);
 	}
 }

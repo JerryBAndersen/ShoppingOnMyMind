@@ -1,31 +1,44 @@
-﻿public class BreakableProduct : BreakableItem, Buyable
+﻿using UnityEngine;
+
+public class BreakableProduct : Product, Breakable
 {
-	public float _price = 2.99f;
-	public float price{
+	public float breakForce = .1f;
+	public GameObject fragmentsPrefab = null;
+	public GameObject fragments = null;
+
+	public bool isBroken{
 		get{ 
-			return _price;
+			return fragments != null;
 		}
-	}
-	public bool _isPaid = false;
-	public bool isPaid{
-		get{ 
-			return _isPaid;
-		}
-	}
-	public override void Start ()
-	{
-		base.Start ();
 	}
 
-	public override void Update ()
-	{
-		base.Update ();
+	void OnCollisionEnter(Collision c){
+		var rel = c.relativeVelocity;
+		var otherrigid = c.collider.GetComponent<Rigidbody> ();
+		Vector3 averageNormal = Vector3.zero;
+		foreach (var con in c.contacts) {
+			averageNormal += con.normal;
+		}
+		averageNormal /= c.contacts.Length;
+
+		var force = (otherrigid?otherrigid.mass:1f)*Vector3.Dot (rel, averageNormal);
+		if (force > breakForce) {
+			Break ();
+		}
 	}
 
-	public void Buy(PlayerController player){		
-		if (player.Pay (this)) {
-			_isPaid = true;
+	public void Break(){
+		fragments = Instantiate (fragmentsPrefab, transform,false);
+		fragments.transform.SetParent (null,true);
+		foreach (var ri in fragments.GetComponentsInChildren<Rigidbody>()) {
+			ri.velocity = rigid.velocity;
 		}
+		Destroy (gameObject);
+		MakeBreakSound ();
+	}
+
+	public virtual void MakeBreakSound(){
+		// TODO
 	}
 }
 

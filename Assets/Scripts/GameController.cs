@@ -7,10 +7,10 @@ public class GameController : MonoBehaviour
 	public static GameController instance = null;
 	public static bool isDebug = true;
 
-	public static Dictionary<int,PlayerController> players = new Dictionary<int,PlayerController> ();
+	public static PlayerController[] players = new PlayerController[8];
 	public static List<NpcController> npcs = new List<NpcController> ();
 
-	public Buyable[] possibleShoppingListItems;
+	public Product[] possibleShoppingListItems;
 	public int shoppingListLength = 10;
 
 	public Color[] playerColors = {
@@ -30,10 +30,10 @@ public class GameController : MonoBehaviour
 
 	void Update(){
 		for(int i = 0; i < 8; i++){
-			if (players [i] == null) {
-				if (Input.GetButtonDown ("Start" + i)) {
-					AddPlayer (i);		
-				}
+			if (Input.GetKeyDown (""+i)) {
+				if (players [i] == null) {
+					AddPlayer (i);	
+				}	
 			}
 		}
 		if(Input.GetKeyDown(KeyCode.Space)){
@@ -47,17 +47,21 @@ public class GameController : MonoBehaviour
 	}
 
 	void AddPlayer(int i){
-		int sel = (int)(UnityEngine.Random.value * npcs.Count);
-		var n = npcs [sel];
-		npcs.Remove (n);
-		Destroy (n.GetComponent<NpcController>());
-		var player = n.gameObject.AddComponent<PlayerController>();
-		player.playerId = i;
-		for(int j = 0; j < shoppingListLength; j++){
-			player.shoppingList.Add(GetRandomShoppingListItem(),false);
+		if (npcs.Count > 0) {
+			int sel = (int)(UnityEngine.Random.value * npcs.Count);
+			var n = npcs [sel];
+			npcs.Remove (n);
+			Destroy (n.GetComponent<NpcController>());
+			var player = n.gameObject.AddComponent<PlayerController>();
+			player.playerId = i;
+			for(int j = 0; j < shoppingListLength; j++){
+				string it = GetRandomShoppingListItem();
+				player.shoppingList.Add(it);
+				player.forgotten.Add(it);
+			}
+			players[i] = (player);
+			PaintInPlayerColor (player.gameObject,player.playerId);
 		}
-		players.Add (i,player);
-		PaintInPlayerColor (player.gameObject,player.playerId);
 	}
 
 	public static void Paint(GameObject go, Color col){
@@ -71,7 +75,7 @@ public class GameController : MonoBehaviour
 			mr.material.color = GameController.instance.playerColors[i];
 		}	
 	}
-
+/*
 	void ChangePlayer(PlayerController player, NpcController n){
 		// prepare new host
 		npcs.Remove (n);
@@ -90,24 +94,20 @@ public class GameController : MonoBehaviour
 		//}
 		//players[player.playerId] = p;
 	}
-
+*/
 	public void EndGame(){
-		foreach (var player in players.Values) {
-			string output = "Player " + player.playerId + "\r\n\tgot:\r\n";
+		foreach (var player in players) {
+			string output = "Player " + player.playerId + "\r\n";
 			foreach (var item in player.shoppingList) {
-				if (!item.Value) {
-					player.forgotten.Add (item.Key);
+				if (player.forgotten.Contains(item)) {
+					player.forgotten.Remove (item);
+					output += ("\tforgot: " + item + "\r\n");
 				} else {
-					print ("\t" + item.Key + "\r\n");
+					output += ("\tgot: " + item + "\r\n");
 				}
 			}
-			print ("forgot:\r\n");
-			foreach(var item in player.forgotten){
-				print ("\t" + item + "\r\n");
-			}
-			print ("stole:\r\n");
 			foreach(var item in player.stolen){
-				print ("\t" + item + "\r\n");
+				output +=  ("\tstole: " + item + "\r\n");
 			}
 			print (output);
 		}	

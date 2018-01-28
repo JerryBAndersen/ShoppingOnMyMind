@@ -4,30 +4,35 @@ public class ShoppingCart : MonoBehaviour
 {
 	public PlayerController current = null;
 	public PlayerArea playerArea;
-	public BuyableArea buyableArea;
+	public ProductArea itemArea;
 
 	public void FixedUpdate(){
-		if (current != null) {
-			if (playerArea.containing.ContainsKey (current)) {
-				current = null;
-			}
-		} else {
-			if (playerArea.containedObjects.Length > 0) {
+		if (playerArea.containedObjects.Length > 0) {
+			if (current != null) {
+				if (!playerArea.containing.ContainsKey (current)) {
+					current = (PlayerController)playerArea.containedObjects[0];
+					GameController.PaintInPlayerColor (gameObject, current.playerId);
+				}
+			} else {
 				current = (PlayerController)playerArea.containedObjects[0];
 				GameController.PaintInPlayerColor (gameObject, current.playerId);
 			}
 		}
+
 	}
 
 	public bool isEvaluated = false;
 	public void Evaluate() {
 		isEvaluated = true;
-		foreach (var b in buyableArea.containing) {
+		foreach (var b in itemArea.containing) {
 			var bu = (Buyable) b.Key;
 			// was this on the shopping list?
-			foreach (string needed in current.shoppingList.Keys) {
-				if (bu.GetType ().ToString () == needed) {
-					current.shoppingList [needed] = true;
+			foreach (string needed in current.shoppingList) {
+				if (bu.GetType ().ToString () == needed && bu.isPaid) {
+					current.forgotten.Remove(needed);
+					if (current.forgotten.Count == 0) {
+						GameController.instance.EndGame ();
+					}
 					break;
 				}
 			}

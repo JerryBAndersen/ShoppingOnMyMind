@@ -5,11 +5,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
 	public int playerId = -1;
-	public Dictionary<string,bool> shoppingList = new Dictionary<string,bool> ();
+	public List<string> shoppingList = new List<string> ();
+	public List<string> forgotten = new List<string>();
 
 	public List<string> bought = new List<string>();
 	public List<string> stolen = new List<string>();
-	public List<string> forgotten = new List<string>();
 
 	public float cash = 10;
 
@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour {
 		rigid = GetComponent<Rigidbody> ();
 	}
 	
-	// Update is called once per frame
+	/* Update is called once per frame
 	void FixedUpdate () {
 		float hor = Input.GetAxis ("Horizontal");
 		float ver = Input.GetAxis ("Vertical");
@@ -52,4 +52,5 @@ public class PlayerController : MonoBehaviour {
 
 
 	}
+	*/
 }
