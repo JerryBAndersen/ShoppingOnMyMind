@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: c61862068a248934c958132eb94e594b
-timeCreated: 1517105934
+guid: 63aaf9d14e409fb4da487c6d30ae6c86
+timeCreated: 1517106131
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -10,14 +10,14 @@ ModelImporter:
     2100000: lambert1
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Banana2
+    4300000: Tomato:Mesh
     9500000: //RootNode
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: lambert1
-    second: {fileID: 2100000, guid: f5d057e2ebe687f4bb63be084e855718, type: 2}
+    second: {fileID: 2100000, guid: b389643251adf3e488a7bf1588a836b6, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

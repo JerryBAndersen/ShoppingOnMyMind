@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: c61862068a248934c958132eb94e594b
-timeCreated: 1517105934
+guid: 562be12ba48b1e44dba54164b10c1d89
+timeCreated: 1517105969
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -10,7 +10,7 @@ ModelImporter:
     2100000: lambert1
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Banana2
+    4300000: Banana:Banana
     9500000: //RootNode
   externalObjects:
   - first:

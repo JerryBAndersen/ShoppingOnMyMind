@@ -13,7 +13,12 @@ ModelImporter:
     4300000: can_peaches
     7400000: Take 001
     9500000: //RootNode
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: peaches_01
+    second: {fileID: 2100000, guid: 1dedcfd121ae18044bff2b8e64af2660, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
