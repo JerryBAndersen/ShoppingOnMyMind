@@ -83,7 +83,7 @@ public class MoveBodyParts : MonoBehaviour {
         Foot_appliedForce = new Vector3(Foot_horizontalMove, 0, Foot_verticalMove);
 
         //Apply Force (Move the Rigidbody)
-        Debug.Log(Root.position + left);
+        //Debug.Log(Root.position + left);
         ArmLeft.AddForce( new Vector3(0, -Arm_verticalMove, Arm_horizontalMove));
         ArmRight.AddForce( new Vector3(0, -Arm_verticalMove, -Arm_horizontalMove));
         FootLeft.AddForce(Foot_appliedForce);
@@ -99,7 +99,7 @@ public class MoveBodyParts : MonoBehaviour {
         if (Input.GetButtonDown("Jump_" + controllerID.ToString()))
         {
             this.Jumping(JumpingStrength);
-            Debug.Log(controllerID);
+            //Debug.Log(controllerID);
         }
     }
     void updateGrabbingStatus()
@@ -109,8 +109,8 @@ public class MoveBodyParts : MonoBehaviour {
         {
             if (!grabbingActiveLeft)
             {
-                Debug.Log(controllerID);
-                Debug.Log("I am trying to grab stuff!");
+                //Debug.Log(controllerID);
+                //Debug.Log("I am trying to grab stuff!");
                 //Call Function to grab stuff
                 grabbingActiveLeft = grabStuff(GJ_HandLeft);            
             }
@@ -130,7 +130,7 @@ public class MoveBodyParts : MonoBehaviour {
         {
             if (!grabbingActiveRight)
             {
-                Debug.Log("I am trying to grab stuff!");
+                //Debug.Log("I am trying to grab stuff!");
                 //Call Function to grab stuff
                 grabbingActiveRight = grabStuff(GJ_HandRight);
             }
@@ -139,7 +139,7 @@ public class MoveBodyParts : MonoBehaviour {
         {
             if (grabbingActiveRight)
             {
-                Debug.Log("I am letting go!");
+                //Debug.Log("I am letting go!");
                 clearGrabbing(GJ_HandRight);
                 grabbingActiveRight = false;
                 //Clear Joint
@@ -166,7 +166,7 @@ public class MoveBodyParts : MonoBehaviour {
             {
                 if (colliders[i].gameObject.tag != "Player")
                 {
-                    Debug.Log("Collided Objects: " + colliders[i].gameObject);
+                    //Debug.Log("Collided Objects: " + colliders[i].gameObject);
                     float DistanceOld;
                     float DistanceNew;
                     DistanceOld = Vector3.Distance(nearestObject.gameObject.transform.position, Hand.transform.position);
@@ -184,7 +184,7 @@ public class MoveBodyParts : MonoBehaviour {
             {
                 //Create Joint
                 JointHand = Hand.AddComponent<HingeJoint>();
-                Debug.Log("Connecting Joint with " + nearestObject.gameObject.GetComponent<Rigidbody>());
+                //Debug.Log("Connecting Joint with " + nearestObject.gameObject.GetComponent<Rigidbody>());
                 JointHand.connectedBody = nearestObject.gameObject.GetComponent<Rigidbody>();
                 //nearestObject.gameObject.GetComponent<Rigidbody>().mass = 0.1F;
                 //nearestObject.gameObject.GetComponent<Rigidbody>().useGravity = false;

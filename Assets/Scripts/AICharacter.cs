@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-
+[RequireComponent(typeof(NavMeshAgent))]
 public class AICharacter : MonoBehaviour {
 
     private NavMeshAgent nav;
-    public float navRadius = 5;
+    public float navRadius = 15;
     private float timer;
 
     // Use this for initialization
@@ -26,7 +26,7 @@ public class AICharacter : MonoBehaviour {
             {
                 nav.destination = new Vector3(hit.position.x, 0.05f,hit.position.z);
             }
-            timer = Random.Range(0.5f, 4f);
+            timer = Random.Range(5f, 8f);
         }
         timer -= Time.deltaTime;
 

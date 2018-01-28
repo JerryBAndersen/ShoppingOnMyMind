@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.AI;
 
 public class GameController : MonoBehaviour
 {
@@ -52,6 +53,11 @@ public class GameController : MonoBehaviour
 			var n = npcs [sel];
 			npcs.Remove (n);
 			Destroy (n.GetComponent<NpcController>());
+			n.GetComponent<AICharacter> ().enabled = false;
+			n.GetComponent<NavMeshAgent> ().enabled = false;
+			n.GetComponent<MoveBodyParts> ().enabled = true;
+			n.GetComponent<MoveBodyParts> ().controllerID = i;
+			PaintInPlayerColor (n.gameObject,i);
 			var player = n.gameObject.AddComponent<PlayerController>();
 			player.playerId = i;
 			for(int j = 0; j < shoppingListLength; j++){
@@ -67,13 +73,14 @@ public class GameController : MonoBehaviour
 	public static void Paint(GameObject go, Color col){
 		foreach(MeshRenderer mr in go.GetComponentsInChildren<MeshRenderer>()){
 			mr.material.color = col;
-		}	
+		}
+		foreach(SkinnedMeshRenderer mr in go.GetComponentsInChildren<SkinnedMeshRenderer>()){
+			mr.material.color = col;
+		}
 	}
 
 	public static void PaintInPlayerColor(GameObject go, int i){
-		foreach(MeshRenderer mr in go.GetComponentsInChildren<MeshRenderer>()){
-			mr.material.color = GameController.instance.playerColors[i];
-		}	
+		Paint (go,GameController.instance.playerColors[i]);
 	}
 /*
 	void ChangePlayer(PlayerController player, NpcController n){

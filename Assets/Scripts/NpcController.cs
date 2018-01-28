@@ -2,5 +2,6 @@
 
 public class NpcController : MonoBehaviour
 {
+	
 }
 
