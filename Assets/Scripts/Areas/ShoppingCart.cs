@@ -51,7 +51,7 @@ public class ShoppingCart : MonoBehaviour
 		var icons = FindObjectsOfType<FoodIcon> ();
 		for(int i = 0; i < 4; i++){
 			var icon = icons [i];
-			if (current.DidBuyProduct (icon.current)) {
+			if (current.DidBuyProduct (icon.activeFood)) {
 				icon.heDidIt (current.playerId);			
 			}
 		}
