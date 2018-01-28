@@ -283,7 +283,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\_MK\MKGlowFree\MKGlowFree.cs" />
+<<<<<<< HEAD
     <Compile Include="Assets\cha_data\Script\ScreenShot.cs" />
+=======
+    <Compile Include="Assets\FoodIcon.cs" />
+    <Compile Include="Assets\icons\cha_data\Script\ScreenShot.cs" />
+>>>>>>> f07f3d8c0fb61dbc016b7d31f2db35248ac4bb5a
     <Compile Include="Assets\Inverse Kinematics\Scripts\InverseKinematics.cs" />
     <Compile Include="Assets\OutlineEffect\Demo\MaterialSwitcher.cs" />
     <Compile Include="Assets\OutlineEffect\Demo\OutlineAnimation.cs" />

@@ -145,6 +145,6 @@ MonoBehaviour:
   coll: {fileID: 0}
   _price: 2.99
   _isPaid: 0
-  breakForce: 0.1
+  breakForce: 5
   fragmentsPrefab: {fileID: 0}
   fragments: {fileID: 0}

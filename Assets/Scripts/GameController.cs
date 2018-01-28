@@ -12,7 +12,7 @@ public class GameController : MonoBehaviour
 	public static List<NpcController> npcs = new List<NpcController> ();
 
 	public Product[] possibleShoppingListItems;
-	public int shoppingListLength = 10;
+	public int shoppingListLength = 4;
 	public List<string> shoppingList = new List<string> ();
 
 	public Color[] playerColors = {
@@ -35,6 +35,13 @@ public class GameController : MonoBehaviour
 				it = GetRandomShoppingListItem();
 			}
 			shoppingList.Add(it);
+		}
+		if (shoppingList.Count == 4) {
+			var icons = FindObjectsOfType<FoodIcon> ();
+			for(int i = 0; i < 4; i++){
+				var icon = icons [i];
+				icon.changeIcon (shoppingList [i]);
+			}
 		}
 	}
 

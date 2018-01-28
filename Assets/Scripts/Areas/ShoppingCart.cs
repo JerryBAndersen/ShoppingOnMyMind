@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class ShoppingCart : MonoBehaviour
 {
@@ -45,5 +46,14 @@ public class ShoppingCart : MonoBehaviour
 			Destroy (b.Key.gameObject);
 		}
 		Destroy (gameObject);
+
+		// update ui
+		var icons = FindObjectsOfType<FoodIcon> ();
+		for(int i = 0; i < 4; i++){
+			var icon = icons [i];
+			if (current.DidBuyProduct (icon.current)) {
+				icon.heDidIt (current.playerId);			
+			}
+		}
 	}
 }
