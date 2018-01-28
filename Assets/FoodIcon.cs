@@ -23,7 +23,7 @@ public class FoodIcon : MonoBehaviour {
         }
 	}
 
-    void heDidIt(int PlayerNr)
+    public void heDidIt(int PlayerNr)
     {
         Checked[PlayerNr] = true;
         CheckboxList[PlayerNr].gameObject.SetActive(true);
@@ -34,14 +34,16 @@ public class FoodIcon : MonoBehaviour {
 		
 	}
 
-    void changeIcon(GameObject prefab)
+	public string current = "";
+
+    public void changeIcon(string prefab)
     {
         for(int i=0; i<IconList.Length; i++)
         {
-            if (prefab.name == IconList[i].name)
+            if (prefab == IconList[i].name)
             {
                 this.GetComponent<Image>().sprite = IconList[i];
-                underschrift.text = prefab.name;
+                underschrift.text = prefab;
             }
         }
     }
