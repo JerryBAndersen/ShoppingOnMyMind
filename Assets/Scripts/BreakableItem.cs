@@ -29,13 +29,21 @@ public class BreakableItem : Item, Breakable
 	}
 
 	public void Break(){
-		fragments = Instantiate (fragmentsPrefab, transform,false);
-		fragments.transform.SetParent (null,true);
-		foreach (var ri in fragments.GetComponentsInChildren<Rigidbody>()) {
-			ri.velocity = rigid.velocity;
+		if(fragmentsPrefab){
+			fragments = Instantiate (fragmentsPrefab, transform,false);
+			fragments.transform.SetParent (null,true);
+			foreach (var ri in fragments.GetComponentsInChildren<Rigidbody>()) {
+				ri.velocity = rigid.velocity;
+			}
+			StartCoroutine (DestroyDelayed());
 		}
-		Destroy (gameObject);
 		MakeBreakSound ();
+		Destroy (gameObject);
+	}
+
+	public IEnumerator DestroyDelayed(){
+		yield return new WaitForSeconds (5);
+		Destroy (fragments);
 	}
 
 	public virtual void MakeBreakSound(){
