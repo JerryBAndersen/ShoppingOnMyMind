@@ -15012,8 +15012,8 @@ MonoBehaviour:
   FootLeft: {fileID: 54113629067299850}
   FootRight: {fileID: 54908021793923356}
   Root: {fileID: 54640732372459616}
-  timeToElapseTillNextJump: 1.06
-  JumpingStrength: 50
+  timeToElapseTillNextJump: 1.6
+  JumpingStrength: 80
   GrabRadius: 0.2
   GJ_HandLeft: {fileID: 1016212388941856}
   GJ_HandRight: {fileID: 1449101250136824}
