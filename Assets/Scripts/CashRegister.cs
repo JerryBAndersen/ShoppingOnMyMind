@@ -4,6 +4,7 @@ public class CashRegister : ProductArea
 {
 	public PlayerArea playerArea;	
 	public PlayerController current = null;
+    public AudioSource ching;
 
 	public void FixedUpdate(){
 		if (current == null) {
@@ -33,7 +34,7 @@ public class CashRegister : ProductArea
 	}
 
 	public void MakeCashRegisterSound(){
-		// TODO
-		print("CHA CHING!");
+        ching.Play();
+		print("CHA cHING!");
 	}
 }
