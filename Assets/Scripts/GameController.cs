@@ -31,7 +31,7 @@ public class GameController : MonoBehaviour
 
 	void Update(){
 		for(int i = 0; i < 8; i++){
-			if (Input.GetKeyDown (""+i)) {
+			if (Input.GetKeyDown (""+i) || Input.GetButtonDown ("Start"+i)) {
 				if (players [i] == null) {
 					AddPlayer (i);	
 				}	
