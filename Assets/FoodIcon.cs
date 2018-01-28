@@ -38,6 +38,7 @@ public class FoodIcon : MonoBehaviour {
 
     public void changeIcon(string prefab)
     {
+        Debug.Log(prefab);
         for(int i=0; i<IconList.Length; i++)
         {
             if (prefab == IconList[i].name)
